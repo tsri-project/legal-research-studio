@@ -12,7 +12,10 @@
   },
   "vars": {
     "ACCESS_TEAM_DOMAIN": "",
-    "ACCESS_AUD": ""
+    "ACCESS_AUD": "",
+    "DEEPSEEK_BASE_URL": "https://api.deepseek.com",
+    "DEEPSEEK_MODEL": "deepseek-chat",
+    "SUPABASE_URL": ""
   },
   "d1_databases": [
     {
@@ -20,6 +23,12 @@
       "database_name": "legal-research-studio-db",
       "database_id": "00000000-0000-0000-0000-000000000000",
       "migrations_dir": "migrations"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "RESEARCH_FILES",
+      "bucket_name": "legal-research-studio-files"
     }
   ]
 }

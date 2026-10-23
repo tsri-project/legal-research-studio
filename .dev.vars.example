@@ -1,2 +1,28 @@
-# Copy to .dev.vars for LOCAL wrangler dev only. Never commit the real file.
+# ==============================================================================
+# LEGAL RESEARCH STUDIO — EXAMPLE ENVIRONMENT VARIABLES (.dev.vars.example)
+# ==============================================================================
+# คัดลอกไฟล์นี้เป็น .dev.vars สำหรับการรันในเครื่องผ่าน Wrangler Dev:
+# cp .dev.vars.example .dev.vars
+
+# 1. LOCAL DEVELOPMENT & CLOUDFLARE ACCESS
 LOCAL_DEV_USER="developer@example.invalid"
+ACCESS_TEAM_DOMAIN=""
+ACCESS_AUD=""
+
+# 2. SUPABASE CONFIGURATION
+SUPABASE_URL="https://your-project-id.supabase.co"
+SUPABASE_ANON_KEY="your-supabase-anon-key"
+SUPABASE_SERVICE_ROLE_KEY="your-supabase-service-role-key"
+SUPABASE_DB_URL="postgresql://postgres:[PASSWORD]@db.[REF].supabase.co:5432/postgres"
+
+# 3. CLOUDFLARE R2 CONFIGURATION
+CLOUDFLARE_ACCOUNT_ID="your-cloudflare-account-id"
+R2_BUCKET_NAME="legal-research-studio-files"
+R2_ACCESS_KEY_ID="your-r2-access-key-id"
+R2_SECRET_ACCESS_KEY="your-r2-secret-access-key"
+R2_ENDPOINT="https://your-account-id.r2.cloudflarestorage.com"
+
+# 4. DEEPSEEK API KEY
+DEEPSEEK_API_KEY="sk-your-deepseek-api-key"
+DEEPSEEK_BASE_URL="https://api.deepseek.com"
+DEEPSEEK_MODEL="deepseek-chat"
