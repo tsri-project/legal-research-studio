@@ -1,0 +1,9 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {emptyWorkspace,validateWorkspace,saveWorkspace,loadWorkspace,deleteProject,csvCell,timeline,isHttpUrl} from '../src/lib/model.js';
+const project={id:'p1',title:'โครงการ',question:'คำถาม',method:'Doctrinal',weeks:'12'};
+test('valid workspace persists and round trips Thai content',()=>{const storage=new Map();storage.setItem=storage.set;storage.getItem=storage.get;const d={...emptyWorkspace(),projects:[project]};saveWorkspace(storage,d);assert.deepEqual(loadWorkspace(storage),d)});
+test('invalid links, duplicate identifiers and wrong types rejected',()=>{assert.throws(()=>validateWorkspace({...emptyWorkspace(),projects:[project,project]}));assert.throws(()=>validateWorkspace({...emptyWorkspace(),evidence:[{id:'e1',name:'doc',url:'javascript:alert(1)'}]}));assert.throws(()=>validateWorkspace({...emptyWorkspace(),projects:[{...project,weeks:'0'}]}));assert.throws(()=>validateWorkspace({...emptyWorkspace(),checks:[0,0]}))});
+test('unknown project links rejected; deletion preserves documents',()=>{const d={...emptyWorkspace(),projects:[project],evidence:[{id:'e1',name:'หลักฐาน',projectId:'p1'}]};const out=deleteProject(d,'p1');assert.equal(out.evidence[0].projectId,'');assert.equal(out.evidence.length,1);assert.doesNotThrow(()=>validateWorkspace(out));assert.throws(()=>validateWorkspace({...d,projects:[]}))});
+test('CSV neutralizes formula injection including leading whitespace',()=>{assert.equal(csvCell(' =SUM(A1)'), '"\' =SUM(A1)"');assert.equal(csvCell('a"b'),'"a""b"');assert.equal(isHttpUrl('https://example.com'),true);assert.equal(isHttpUrl('data:text/html,hi'),false)});
+test('timeline covers every week exactly once',()=>{for(const weeks of [6,7,12,25,104]){const ranges=timeline(weeks);assert.equal(ranges[0].start,1);assert.equal(ranges[5].end,weeks);for(let i=1;i<6;i++)assert.equal(ranges[i].start,ranges[i-1].end+1)}});

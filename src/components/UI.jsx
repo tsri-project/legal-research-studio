@@ -1,0 +1,5 @@
+import { useId } from 'react';
+export function Heading({tag,title,children,action}){return <div className="heading"><div><div className="eyebrow">{tag}</div><h1>{title}</h1><p>{children}</p></div>{action}</div>}
+export function Field({label,name,value='',onChange,type='text',required=false,options,wide=false,min,max}){const id=useId();return <div className={wide?'wide':''}><label htmlFor={id}>{label}{required?' *':''}</label>{options?<select id={id} name={name} value={value} onChange={e=>onChange(e.target.value)}>{options.map(o=><option key={typeof o==='string'?o:o.value} value={typeof o==='string'?o:o.value}>{typeof o==='string'?o:o.label}</option>)}</select>:type==='textarea'?<textarea id={id} name={name} required={required} maxLength={30000} value={value} onChange={e=>onChange(e.target.value)}/>:<input id={id} name={name} type={type} required={required} value={value} min={min} max={max} maxLength={30000} onChange={e=>onChange(e.target.value)}/>}</div>}
+export function Notice({children}){return <div className="notice">{children}</div>}
+export function Card({children}){return <section className="card">{children}</section>}

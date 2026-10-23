@@ -1,0 +1,2 @@
+# Copy to .dev.vars for LOCAL wrangler dev only. Never commit the real file.
+LOCAL_DEV_USER="developer@example.invalid"
